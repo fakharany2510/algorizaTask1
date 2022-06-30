@@ -1,6 +1,11 @@
+import 'package:algoriza_intern_task1/config/theme/apptheme.dart';
+import 'package:algoriza_intern_task1/utils/appcolors.dart';
+import 'package:algoriza_intern_task1/utils/appstrings.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../shared/component.dart';
 
 class OnBoardingModel {
   final String image;
@@ -52,16 +57,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           children: [
             Align(
               alignment: Alignment.topRight,
-              child: TextButton(
-                onPressed: () {
+              child:defaultTextButton(
+                text: 'Skip',
+                function: (){
                   Navigator.pushNamed(context, 'login');
-                },
-                child:Text('SKIP',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: HexColor('#7c9484'),
-                ),
-                ) ,
+                }
               ),
             ),
             Expanded(
@@ -99,36 +99,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     )
                 ),
                 SizedBox(height: 20,),
-               Container(
-                 height: 50,
-                 width:double.infinity,
-                 decoration: BoxDecoration(
-                   color: HexColor('#93dfaa'),
-                   borderRadius: BorderRadius.circular(10),
-                 ),
-                 child: InkWell(
-                   child: Center(
-                     child: Text('Get Started',
-                       style: TextStyle(
-                         color: Colors.white,
-                         fontSize: 18,
-                         fontFamily: 'candy'
+               defaultButton(function: (){
+                 if(isLast==true){
+                   Navigator.pushNamed(context, 'login');
+                 }else{
+                   pageController.nextPage(
+                       duration: Duration(
+                         microseconds: 750,
                        ),
-                     ),
-                   ),
-                   onTap: (){
-                     if(isLast==true){
-                       Navigator.pushNamed(context, 'login');
-                     }else{
-                       pageController.nextPage(
-                           duration: Duration(
-                             microseconds: 750,
-                           ),
-                           curve:Curves.fastLinearToSlowEaseIn);
-                     }
-                   },
-                 ),
-               ),
+                       curve:Curves.fastLinearToSlowEaseIn);
+                 }
+               }, text:'Get Started'),
                 SizedBox(height: 15,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -138,17 +119,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       fontSize: 16,
                     ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, 'register');
-                      },
-                      child:Text('SignUp',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: HexColor('#93dfaa'),
-                        ),
-                      ) ,
-                    ),
+                   defaultTextButton(
+                       function: (){
+                         Navigator.pushNamed(context, 'register');
+                       },
+                       text: 'SignUp')
                   ],
                 ),
               ],

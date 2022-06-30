@@ -1,7 +1,10 @@
+import 'package:algoriza_intern_task1/utils/appcolors.dart';
+import 'package:algoriza_intern_task1/utils/appstrings.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../widgets/textformfield.dart';
+import '../shared/component.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -48,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Text('Register and get lots of free courses',
                 style: TextStyle(
                     fontSize: 15,
-                    color: Colors.grey
+                    color: AppColor.hintColor
                 ),
               ),
               SizedBox(height: 10,),
@@ -57,13 +60,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Text('Register', style: TextStyle(
                       color: HexColor('#263238'),
                       fontSize: 40,
-                      fontFamily: 'candy'
+                      fontFamily: AppStrings.appFont
                   ),),
                   Spacer(),
-                  TextButton(onPressed: (){}, child: Text('Help ? ',style: TextStyle(
-                      color: HexColor('#92e3a9'),
-                      fontSize: 18
-                  ),))
+                  defaultTextButton(function: (){}, text: 'Help ? '),
                 ],
               ),
               SizedBox(height: 20,),
@@ -94,27 +94,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixIcon: Icons.password
               ),
               SizedBox(height: 20,),
-              Container(
-                height: 50,
-                width:double.infinity,
-                decoration: BoxDecoration(
-                  color: HexColor('#93dfaa'),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: InkWell(
-                  child: Center(
-                    child: Text('Log In',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+              defaultButton(function: (){
 
-                      ),
-                    ),
-                  ),
-                  onTap: (){
-                  },
-                ),
-              ),
+              }, text: 'Log In'),
               SizedBox(height:10,),
               Center(child: Text('Or',style: TextStyle(
                   color: Colors.grey
@@ -154,21 +136,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontSize: 16,
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'register');
-                    },
-                    child:Text('Sign in here',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: HexColor('#93dfaa'),
-                      ),
-                    ) ,
-                  ),
+                  defaultTextButton(function: (){}, text: 'Sign in here'),
                 ],
               ),
               SizedBox(height: 15,),
-              Text('Use this application according to policy rules.\n'
+              const Text('Use this application according to policy rules.\n'
                   ' Any kinds of violations will be subject to sanctions',
                 textAlign: TextAlign.center,
                 style:TextStyle(
