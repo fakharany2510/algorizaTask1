@@ -2,7 +2,6 @@ import 'package:algoriza_intern_task1/utils/appcolors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 import '../utils/appstrings.dart';
 
 Widget defaultTextFormFieldWidget(
@@ -12,7 +11,8 @@ Widget defaultTextFormFieldWidget(
       required TextInputType inputType,
       required String labelText,
       required String errorMessage,
-      required IconData prefixIcon
+       IconData? prefixIcon,
+      Widget? prefixWidget,
     }
     )=>TextFormField(
   style: TextStyle(
@@ -25,6 +25,7 @@ Widget defaultTextFormFieldWidget(
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: HexColor('##28383f')),
       borderRadius: BorderRadius.circular(15),
+
     ),
     border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15)
@@ -37,6 +38,7 @@ Widget defaultTextFormFieldWidget(
       color: AppColor.hintColor,
     ),),
     prefixIcon: Icon(prefixIcon,color:HexColor('#92e3a9')),
+   prefix:prefixWidget,
   ),
   validator: (value){
     if(value!.isEmpty){

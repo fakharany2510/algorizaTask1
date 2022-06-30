@@ -1,5 +1,6 @@
 import 'package:algoriza_intern_task1/utils/appcolors.dart';
 import 'package:algoriza_intern_task1/utils/appstrings.dart';
+import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -16,6 +17,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController password= TextEditingController();
   TextEditingController email= TextEditingController();
   TextEditingController phone= TextEditingController();
+  String dialCodeInitialcode='+20';
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -76,13 +79,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixIcon: Icons.mail_sharp
               ),
               SizedBox(height: 20,),
-              defaultTextFormFieldWidget(
-                  context: context,
-                  controller: phone,
-                  errorMessage:"please enter your phone number",
-                  inputType: TextInputType.phone,
-                  labelText: "phone number",
-                  prefixIcon: Icons.phone
+              Row(
+                children: [
+                  CountryListPick(
+                    theme: CountryTheme(
+                      showEnglishName: false,
+                      //show or hide flag
+                      isShowFlag: true,
+                      // show country title
+                      isShowTitle: false,
+                      //show country code
+                      isShowCode: true,
+                      //show or hide down icon
+                      isDownIcon: false,
+                      //to initial code number country
+                      initialSelection: dialCodeInitialcode,
+                    ),
+                    onChanged: (CountryCode? code){
+                      setState((){
+                        if(code!.dialCode !=null){
+                          dialCodeInitialcode = code.dialCode!;
+                        }else{
+                          print('country code = nul');
+                        }
+
+                      });
+                    },
+                  ),
+                  Expanded(
+                    child: defaultTextFormFieldWidget(
+                      context: context,
+                      controller: phone,
+                      errorMessage:"please enter your phone number",
+                      inputType: TextInputType.phone,
+                      labelText: "phone number",),
+                  ),
+                ],
+
               ),
               SizedBox(height: 20,),
               defaultTextFormFieldWidget(

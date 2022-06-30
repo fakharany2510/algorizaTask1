@@ -2,7 +2,7 @@ import 'package:algoriza_intern_task1/utils/appcolors.dart';
 import 'package:algoriza_intern_task1/utils/appstrings.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+import 'package:country_list_pick/country_list_pick.dart';
 import '../shared/component.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phone= TextEditingController();
   GlobalKey formKey=GlobalKey<FormState>();
+  String dialCodeInitialcode='+20';
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -53,13 +54,43 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 SizedBox(height: 20,),
-                defaultTextFormFieldWidget(
-                    context: context,
-                    controller: phone,
-                    errorMessage:"please enter your phone number",
-                    inputType: TextInputType.phone,
-                    labelText: "phone number",
-                    prefixIcon: Icons.phone
+                Row(
+                  children: [
+                    CountryListPick(
+                      theme: CountryTheme(
+                          showEnglishName: false,
+                          //show or hide flag
+                          isShowFlag: true,
+                          // show country title
+                          isShowTitle: false,
+                        //show country code
+                        isShowCode: true,
+                        //show or hide down icon
+                        isDownIcon: false,
+                        //to initial code number country
+                        initialSelection: dialCodeInitialcode,
+                      ),
+                      onChanged: (CountryCode? code){
+                        setState((){
+                          if(code!.dialCode !=null){
+                            dialCodeInitialcode = code.dialCode!;
+                          }else{
+                            print('country code = nul');
+                          }
+
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: defaultTextFormFieldWidget(
+                        context: context,
+                        controller: phone,
+                        errorMessage:"please enter your phone number",
+                        inputType: TextInputType.phone,
+                        labelText: "phone number",),
+                    ),
+                  ],
+
                 ),
                 SizedBox(height: 20,),
                 defaultButton(function: (){}, text: 'Log In'),
